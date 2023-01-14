@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ContextAPI } from '../../Context/useContext';
 
 const Country = ({ country }) => {
-    const { toggleTheme, setToggleTheme } = useContext(ContextAPI);
+    const { toggleTheme } = useContext(ContextAPI);
     const { name, flags, capital, population, region, ccn3 } = country;
     return (
         <Link to={`/name/${name.common}`} className={`card card-compact shadow rounded ${toggleTheme ? "bg-primary text-base-100" : "bg-base-100"}`}>

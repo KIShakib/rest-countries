@@ -1,22 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { ContextAPI } from '../../Context/useContext';
+import useDynamicTitle from '../../Hooks/useDynamicTitle';
 import Country from './Country';
 
 const Countries = () => {
 
+    useDynamicTitle("All");
+    
     const [region, setRegion] = useState();
     const [name, setName] = useState();
     const [countries, setCountries] = useState();
     const [loading, setLoading] = useState(false);
 
-    const { toggleTheme, setToggleTheme } = useContext(ContextAPI);
+    const { toggleTheme } = useContext(ContextAPI);
 
-    // const { data: countries = [], isLoading, refetch } = useQuery({
-    //     queryKey: ["countries"],
-    //     queryFn: () => fetch("https://restcountries.com/v3.1/all")
-    //         .then(res => res.json())
-    // })
+
     const handleNameForm = e => {
         e.preventDefault();
         const name = e.target.submit.value;
@@ -25,9 +23,13 @@ const Countries = () => {
     }
 
     useEffect(() => {
+        setLoading(true)
         fetch(`https://restcountries.com/v3.1/all`)
             .then(res => res.json())
-            .then(data => setCountries(data))
+            .then(data => {
+                setCountries(data)
+                setLoading(false)
+            })
     }, [])
 
 
@@ -44,38 +46,6 @@ const Countries = () => {
                     setLoading(false)
                 })
         }
-
-
-
-
-
-
-        // Selected Region
-        // if (region === "All") {
-        //     setLoading(true)
-        //     fetch(`https://restcountries.com/v3.1/all`)
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             setCountries(data)
-        //             setLoading(false)
-        //         })
-
-        // }
-
-
-        // if (region) {
-        //     setLoading(true)
-        //     fetch(`https://restcountries.com/v3.1/region/${region}`)
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             setCountries(data)
-        //             setLoading(false)
-        //         })
-        // }
-
-
-        // Specific Country By Name
-
         setLoading(false)
 
     }, [name]);

@@ -5,7 +5,7 @@ import { ContextAPI } from './Components/Context/useContext';
 import { router } from './Components/Routes/Routes';
 
 function App() {
-  const { toggleTheme, setToggleTheme } = useContext(ContextAPI);
+  const { toggleTheme } = useContext(ContextAPI);
   return (
     <div className={`${toggleTheme && "bg-secondary"}`}>
       <RouterProvider router={router}>

@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { ContextAPI } from '../../Context/useContext';
+import useDynamicTitle from '../../Hooks/useDynamicTitle';
 
 const CountryDetails = () => {
-    const { toggleTheme, setToggleTheme } = useContext(ContextAPI);
+    const { toggleTheme } = useContext(ContextAPI);
     const data = useLoaderData();
     const countryDetails = data[0];
     const { name, flags, capital, population, region, ccn3, subregion, tld, currencies, languages, borders } = countryDetails;
+    useDynamicTitle(`${name.common}`)
     const language = Object.values(languages);
     const currency = Object.values(currencies);
     return (
